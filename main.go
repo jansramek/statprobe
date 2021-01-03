@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"crypto/tls"
 	"flag"
 	"fmt"
 	"net/http"
@@ -66,6 +67,10 @@ func checkStatus(urls chan string, o chan string, group *sync.WaitGroup, statusC
 		client := &http.Client{
 			CheckRedirect: func(req *http.Request, via []*http.Request) error {
 				return http.ErrUseLastResponse
+			},
+			Transport: &http.Transport{
+				DisableKeepAlives: true,
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 			},
 		}
 
