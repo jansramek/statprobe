@@ -70,13 +70,18 @@ func checkStatus(urls chan string, o chan string, group *sync.WaitGroup, statusC
 		}
 
 		resp, err := client.Get(url)
+
+		if (err != nil) {
+			if (debug) {
+				o <- "[error] " + err.Error()
+			}
+			continue
+		}
+
 		if (resp.StatusCode == statusCode) {
 			o <- url
-		} else if (debug) {
+		} else if (debug && err == nil) {
 			o <- "[" + fmt.Sprintf("%d", resp.StatusCode) + "] " + url
-		}
-		if (err != nil) {
-			o <- "[Error] " + err.Error()
 		}
 	}
 
