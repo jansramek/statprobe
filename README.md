@@ -9,11 +9,11 @@ Takes a list of URLs and probes for given HTTP status.
 
 ## Usage
 
-statprobe accepts line-delimited urls on `stdin` and outputs matching urls
+statprobe accepts line-delimited urls on `stdin` and outputs matching urls to given `-s` status
 on `stdout`:
 
 ```
-▶ cat urls.txt | statprobe
+▶ cat urls.txt | statprobe -s 403
 http://example1.com
 http://example2.com
 https://example3.com
